@@ -1,7 +1,9 @@
+//Variables
 let dato = 0 
 let saldo = 0
 let tasaInteres = parseFloat(0.38)
 
+//Funcion depositar pide un monto a depositar verifica que sea un numero y lo guarda en la variable saldo.
 function Depositar(){
     let deposito = parseInt(prompt('Ingrese monto a depositar:'))
     if (isNaN(deposito)) {
@@ -13,6 +15,8 @@ function Depositar(){
     }
 }
 
+
+//Funcion transferir pide un monto a transferir, verifica que sea un numero y que no sea mayor al saldo. Actualiza el  monto de la variable saldo
 function Transferir(){
     let transferencia = parseInt(prompt('Ingrese monto que desea transferir.'))
     if (isNaN(transferencia)) {
@@ -28,6 +32,7 @@ function Transferir(){
     }
 }
 
+//Funcion plazo fijo calcula el interes a ganar de un monto ingresado en un periodo de dias sobre una tasa de interes del 38%
 function plazoFijo() {
     let deposito = parseInt(prompt('Ingrese monto a invertir:'))
     let duracion = parseInt(prompt('Seleccione periodo en dias:'))
@@ -37,10 +42,11 @@ function plazoFijo() {
     
 }
 
+//Imprime una alert con el saldo actual
 const VerSaldo = (saldo) => {alert('Su saldo es de: '+saldo)}
 
 
-
+//menu
 do {
     
     dato = parseInt(prompt('Bienvenido elija una opcion para continuar:\n1: Depositar\n2: Transferir\n3: Simular plazo fijo\n4: Ver saldo\n5: Salir'))
