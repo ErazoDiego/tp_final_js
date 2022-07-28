@@ -46,10 +46,61 @@ function plazoFijo() {
 const VerSaldo = (saldo) => {alert('Su saldo es de: '+saldo)}
 
 
+
+const array_tarjetas = [];
+
+class tarjeta{
+
+    constructor(nombre_Titular,dni_Titular, numero_Tarjeta, vencimiento_tarjeta){
+
+        this.nombre_Titular = nombre_Titular;
+        this.dni_Titular = dni_Titular;
+        this.numero_Tarjeta = numero_Tarjeta;
+        this.vencimiento_tarjeta = vencimiento_tarjeta;
+    }
+
+}
+
+
+function validar_campo(campo) {
+
+    if (isNaN(campo)) {
+        alert("No se a ingresado un numero.")
+        return false
+    } else {
+        return true
+    }
+    
+}
+
+
+let nombre= 0
+let dni = 0
+let numero_t = 0
+let vencimiento_t = 0
+
+function agregar_tarjeta() {
+
+    nombre = prompt("Ingrese nombre del titular: ")
+    dni = prompt("Ingrese DNI:")
+
+    do {
+        numero_t =parseInt(prompt("Ingrese numero de la tarjeta: "))
+        dato = validar_campo(numero_t)
+    } while (dato != true);
+     
+    let vencimiento_t = prompt("Ingrese vencimiento de la tarjeta")
+    
+    const tarjeta_x = new tarjeta(nombre,dni,numero_t,vencimiento_t);
+    array_tarjetas.push({tarjeta_x})
+}
+
+
+
 //menu
 do {
     
-    dato = parseInt(prompt('Bienvenido elija una opcion para continuar:\n1: Depositar\n2: Transferir\n3: Simular plazo fijo\n4: Ver saldo\n5: Salir'))
+    dato = parseInt(prompt('Bienvenido elija una opcion para continuar:\n1: Depositar.\n2: Transferir.\n3: Simular plazo fijo.\n4: Ver saldo.\n5: Agregar Tarjeta.\n0: Salir.'))
 
     switch (dato) {
 
@@ -66,16 +117,19 @@ do {
             VerSaldo(saldo);
             break;
         case 5:
-            
+            agregar_tarjeta();
+            console.log(array_tarjetas)
             break;
-    
+        case 0:
+
+            break;
         default:
             alert('Opcion invalida.')
             break;
     }
 
 
+} while (dato != 0);
 
 
 
-} while (dato != 5);
