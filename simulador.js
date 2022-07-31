@@ -4,11 +4,7 @@ let dato2 = 0
 let saldo = 0
 let tasaInteres = parseFloat(0.38)
 
-//variables usadas en la funcion agregar_tarjeta.
-let nombre= 0
-let dni = 0
-let numero_t = 0
-let vencimiento_t = 0
+
 
 //Array donde guardo los objetos
 const array_tarjetas = [
@@ -87,14 +83,16 @@ const VerSaldo = (saldo) => {alert('Su saldo es de: '+saldo)}
 function agregar_tarjeta() {
 
     //datos ingresados por el usuario
-    nombre = prompt("Ingrese nombre del titular: ")
-    dni = prompt("Ingrese DNI:")
+    let nombre = prompt("Ingrese nombre del titular: ")
+    let dni = prompt("Ingrese DNI:")
 
     //no sale del ciclo hasta que se ingrese el dato correctamente
+    let numero_t=0
+    let valida= false
     do {
         numero_t =parseInt(prompt("Ingrese numero de la tarjeta: "))
-        dato = validar_campo(numero_t)
-    } while (dato != true);
+        valida = validar_campo(numero_t)
+    } while (!valida);
      
     let vencimiento_t = prompt("Ingrese vencimiento de la tarjeta")
     
@@ -103,7 +101,7 @@ function agregar_tarjeta() {
     const tarjeta_x = new tarjeta(nombre, dni, numero_t, vencimiento_t);
 
     //guarda el objeto en el array
-    array_tarjetas.push({tarjeta_x})
+    array_tarjetas.push(tarjeta_x)
 }
 
 //funcion mostrar_tarjetas imprime en consola el listado de tarjetas.
@@ -119,7 +117,6 @@ function mostrar_tarjetas(array){
     }
 
 }
-
 
 
 //menu
