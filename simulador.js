@@ -12,9 +12,13 @@ const array_tarjetas = [
 {nombre_Titular: "Alejandro", dni_Titular: 987654, numero_Tarjeta : 11111111111, vencimiento_tarjeta: 1111111},
 {nombre_Titular: "Julio", dni_Titular: 654321, numero_Tarjeta : 222222222, vencimiento_tarjeta: 222222}];
 
+//Array donde guardo las transferencias
+const array_tranferencias=[];
+
+
 
 //clase constructora de objeto
-class tarjeta{
+class Tarjeta{
 
     constructor(nombre_Titular, dni_Titular, numero_Tarjeta, vencimiento_tarjeta){
 
@@ -24,6 +28,15 @@ class tarjeta{
         this.vencimiento_tarjeta = vencimiento_tarjeta;
     }
 
+}
+
+class Transferencia{
+
+    constructor(nombre_t_cuenta, monto_transferido, CBU){
+        this.nombre_t_cuenta = nombre_t_cuenta;
+        this.monto_transferido = monto_transferido;
+        this.CBU = CBU;
+    }
 }
 
 //Funcion depositar pide un monto a depositar verifica que sea un numero y lo guarda en la variable saldo.
@@ -40,18 +53,25 @@ function Depositar(){
 
 //Funcion transferir pide un monto a transferir, verifica que sea un numero y que no sea mayor al saldo. Actualiza el  monto de la variable saldo
 function Transferir(){
-    let transferencia = parseInt(prompt('Ingrese monto que desea transferir.'))
-    if (isNaN(transferencia)) {
+    let nombre_t_cuenta = prompt('Ingrese nombre del titular de la cuenta:')
+    let CBU = parseInt(prompt('ingrese CBU.'))
+    let monto_transferido = parseInt(prompt('Ingrese monto que desea transferir.'))
+    if (isNaN(monto_transferido)) {
         alert('No se ingreso un valor numerico.') 
-    }else if (transferencia >= saldo) {
+    }else if (monto_transferido >= saldo) {
         alert('No posee saldo suficiente para realizar la transferencia')
     } else {
-        let cbu = parseInt(prompt('ingrese CBU al que desea transferir.'))
-        saldo = saldo-transferencia
-        alert('La transferencia fue realizada correctamente al CBU: '+cbu)
-
-
+        
+        saldo = saldo-monto_transferido
+        alert('La transferencia fue realizada correctamente al CBU: '+CBU)
     }
+
+
+    //Creo nuevo objeto transferencias
+    const transfererencia_x = new Transferencia(nombre_t_cuenta,monto_transferido,CBU)
+
+    //Guardo objeto creado en el array
+    array_tranferencias.push(transfererencia_x)
 }
 
 //Funcion plazo fijo calcula el interes a ganar de un monto ingresado en un periodo de dias sobre una tasa de interes del 38%
@@ -98,7 +118,7 @@ function agregar_tarjeta() {
     
 
     //crea un nuevo objeto
-    const tarjeta_x = new tarjeta(nombre, dni, numero_t, vencimiento_t);
+    const tarjeta_x = new Tarjeta(nombre, dni, numero_t, vencimiento_t);
 
     //guarda el objeto en el array
     array_tarjetas.push(tarjeta_x)
@@ -118,11 +138,27 @@ function mostrar_tarjetas(array){
 
 }
 
+function mostrar_transferencias(array){
+
+    if (array_tranferencias.length==0) {
+        alert('No tiene transferensias realizadas.')
+    } else {
+       for (const transferencia_x of array) {
+
+        console.log("Nombre del titular: "+transferencia_x.nombre_t_cuenta);
+        console.log("CBU: "+ transferencia_x.CBU);
+        console.log("monto transferido: $"+transferencia_x.monto_transferido+'\n\n');
+        } 
+        
+    }
+
+    
+}
 
 //menu
 do {
     
-    dato = parseInt(prompt('Bienvenido elija una opcion para continuar:\n1: Depositar/Transferir.\n2: Agregar tarjetas.\n3: Mostrar Tarjetas.\n4: Ver saldo.\n5: Simular Plazo Fijo.\n0: Salir.'))
+    dato = parseInt(prompt('Bienvenido elija una opcion para continuar:\n1: Depositar/Transferir/Simular plazo fijo.\n2: Agregar tarjetas.\n3: Mostrar Tarjetas.\n4: Ver saldo.\n5: Ver transferencias.\n0: Salir.'))
 
     switch (dato) {
 
@@ -130,7 +166,7 @@ do {
 
             do {
 
-                dato2 = parseInt(prompt('elija una opcion: \n1: Depositar\n2: Transferir\n0: salir.')) 
+                dato2 = parseInt(prompt('elija una opcion:\n1: Depositar.\n2: Transferir.\n3: Simular plazo fijo.\n0: salir.')) 
                 switch (dato2) {
                     case 1:
                         Depositar();
@@ -138,10 +174,12 @@ do {
                     case 2:
                         Transferir();
                         break;
+                    case 3:
+                        plazoFijo();
+                        break;
                     case 0:
                         
                         break;
-                
                     default:
                         alert('Opcion invalida.');
                         break;
@@ -151,7 +189,7 @@ do {
             break;
         case 2:
             agregar_tarjeta();
-            console.log(array_tarjetas)
+            
             break;
         case 3:
             mostrar_tarjetas(array_tarjetas);
@@ -160,7 +198,7 @@ do {
             VerSaldo(saldo);
             break;
         case 5:
-            plazoFijo();
+            mostrar_transferencias(array_tranferencias);
             break;
         case 0:
 
