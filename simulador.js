@@ -1,4 +1,4 @@
-//Variables usadas en la funcion Depositar y plazoFijo.
+//Variables usadas en el menu, en la funcion Depositar y en la funcion plazoFijo.
 let dato = 0 
 let dato2 = 0
 let saldo = 0
@@ -6,18 +6,18 @@ let tasaInteres = parseFloat(0.38)
 
 
 
-//Array donde guardo los objetos
+//Aca se guardan las tarjetas.
 const array_tarjetas = [
 {nombre_Titular: "Diego", dni_Titular: 1234567, numero_Tarjeta : 000000001, vencimiento_tarjeta: 010124},
 {nombre_Titular: "Alejandro", dni_Titular: 987654, numero_Tarjeta : 11111111111, vencimiento_tarjeta: 1111111},
 {nombre_Titular: "Julio", dni_Titular: 654321, numero_Tarjeta : 222222222, vencimiento_tarjeta: 222222}];
 
-//Array donde guardo las transferencias
+//Aca se guardan las transferencias.
 const array_tranferencias=[];
 
 
 
-//clase constructora de objeto
+//clase constructora de objeto Tarjeta.
 class Tarjeta{
 
     constructor(nombre_Titular, dni_Titular, numero_Tarjeta, vencimiento_tarjeta){
@@ -30,6 +30,7 @@ class Tarjeta{
 
 }
 
+//clase constructora de objeto Transferencia.
 class Transferencia{
 
     constructor(nombre_t_cuenta, monto_transferido, CBU){
@@ -39,7 +40,7 @@ class Transferencia{
     }
 }
 
-//Funcion depositar pide un monto a depositar verifica que sea un numero y lo guarda en la variable saldo.
+//Pide un monto a depositar verifica que sea un numero y lo guarda en la variable saldo.
 function Depositar(){
     let deposito = parseInt(prompt('Ingrese monto a depositar:'))
     if (isNaN(deposito)) {
@@ -51,7 +52,7 @@ function Depositar(){
     }
 }
 
-//Funcion transferir pide un monto a transferir, verifica que sea un numero y que no sea mayor al saldo. Actualiza el  monto de la variable saldo
+//Pide un monto a transferir, verifica que sea un numero y que no sea mayor al saldo. Actualiza el  monto de la variable saldo
 function Transferir(){
     let nombre_t_cuenta = prompt('Ingrese nombre del titular de la cuenta:')
     let CBU = parseInt(prompt('ingrese CBU.'))
@@ -74,7 +75,7 @@ function Transferir(){
     array_tranferencias.push(transfererencia_x)
 }
 
-//Funcion plazo fijo calcula el interes a ganar de un monto ingresado en un periodo de dias sobre una tasa de interes del 38%
+//Calcula el interes a ganar de un monto ingresado en un periodo de dias sobre una tasa de interes del 38%
 function plazoFijo() {
     let deposito = parseInt(prompt('Ingrese monto a invertir:'))
     let duracion = parseInt(prompt('Seleccione periodo en dias:'))
@@ -84,7 +85,7 @@ function plazoFijo() {
     
 }
 
-//funcion validar_campo devuelve true o false dependiendo de si el parametro ingresado es un numero. 
+//Devuelve true o false dependiendo de si el parametro ingresado es un numero. 
 function validar_campo(campo) {
 
     if (isNaN(campo)) {
@@ -99,7 +100,7 @@ function validar_campo(campo) {
 //Imprime una alert con el saldo actual
 const VerSaldo = (saldo) => {alert('Su saldo es de: '+saldo)}
 
-//funcion agregar_tarjeta pide datos, crear nuevo objeto y lo guarda en el array_tarjetas
+//Pide datos, crear nuevo objeto y lo guarda en el array_tarjetas
 function agregar_tarjeta() {
 
     //datos ingresados por el usuario
@@ -124,7 +125,7 @@ function agregar_tarjeta() {
     array_tarjetas.push(tarjeta_x)
 }
 
-//funcion mostrar_tarjetas imprime en consola el listado de tarjetas.
+//Imprime en consola el listado de tarjetas.
 function mostrar_tarjetas(array){
 
     for (const tarjeta_x of array) {
@@ -138,6 +139,7 @@ function mostrar_tarjetas(array){
 
 }
 
+//Muestra por consola el array_transferencias
 function mostrar_transferencias(array){
 
     if (array_tranferencias.length==0) {
@@ -149,7 +151,7 @@ function mostrar_transferencias(array){
         console.log("CBU: "+ transferencia_x.CBU);
         console.log("monto transferido: $"+transferencia_x.monto_transferido+'\n\n');
         } 
-        
+
     }
 
     
