@@ -176,21 +176,28 @@ function buscar_transferencias(){
     let filtro = prompt("Ingrese Monto a buscar: ");
     const resultado = array_tranferencias.filter((elemento)=>elemento.monto_transferido == filtro);
     if (resultado.length==0){
-        alert("No se an encontrado resultados.")
+        alert("No se an encontrado resultados.");
     }else{
         mostrar_transferencias(resultado);
     };
 
 };
 
+/**
+ * Elimina una tarjeta.
+ */
 function eliminar_tarjeta(){
-    let filtro = parseInt(prompt("ingrese numero de tarjeta: "));
-    const resultado =array_tarjetas.filter((elemento)=>elemento.numero_Tarjeta==filtro);
-    if (resultado.length==0){
-        alert("No se an encontrado resultados.")
+    let filtro = parseInt(prompt("Ingrese numero de tarjeta: "));
+    const resultado =array_tarjetas.map((elemento)=>elemento.numero_Tarjeta);
+    
+    let idx = resultado.indexOf(filtro);
+    if (idx!=-1){
+        array_tarjetas.splice(idx,1);
+        alert("La tarjeta a sido eliminada.");
     }else{
-        mostrar_tarjetas(resultado);
+        alert("No se encontraron coincidencias");
     };
+    
 }
 
 
