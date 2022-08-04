@@ -3,7 +3,7 @@
  */
 let dato = 0; 
 let dato2 = 0;
-let saldo = 0;
+let saldo = 10000;
 let tasaInteres = parseFloat(0.38);
 
 /**
@@ -17,19 +17,18 @@ const array_tarjetas = [
 /**
  * Aca se guardan las transferencias.
  */
-const array_tranferencias=[];
+const array_tranferencias=[{nombre_t_cuenta: "Sandra", monto_transferido: 2500, CBU: 123654987},{nombre_t_cuenta: "Lucas", monto_transferido: 5000, CBU: 225566489},{nombre_t_cuenta: "Victor", monto_transferido: 2000, CBU: 898765454},{nombre_t_cuenta: "Juan", monto_transferido: 4500, CBU: 321245655},{nombre_t_cuenta: "Lucas", monto_transferido:5500 , CBU: 225566489},{nombre_t_cuenta: "Julieta", monto_transferido: 5000, CBU: 785465782}];
 
 /**
  * clase constructora de objeto Tarjeta.
  */
 class Tarjeta{
     constructor(nombre_Titular, dni_Titular, numero_Tarjeta, vencimiento_tarjeta){
-
         this.nombre_Titular = nombre_Titular;
         this.dni_Titular = dni_Titular;
         this.numero_Tarjeta = numero_Tarjeta;
         this.vencimiento_tarjeta = vencimiento_tarjeta;
-    }
+    };
 };
 
 /**
@@ -169,12 +168,37 @@ function mostrar_transferencias(array){
     };  
 };
 
+/**
+ * Busca tranferencias 
+ */
+function buscar_transferencias(){
+
+    let filtro = prompt("Ingrese Monto a buscar: ");
+    const resultado = array_tranferencias.filter((elemento)=>elemento.monto_transferido == filtro);
+    if (resultado.length==0){
+        alert("No se an encontrado resultados.")
+    }else{
+        mostrar_transferencias(resultado);
+    };
+
+};
+
+function eliminar_tarjeta(){
+    let filtro = parseInt(prompt("ingrese numero de tarjeta: "));
+    const resultado =array_tarjetas.filter((elemento)=>elemento.numero_Tarjeta==filtro);
+    if (resultado.length==0){
+        alert("No se an encontrado resultados.")
+    }else{
+        mostrar_tarjetas(resultado);
+    };
+}
+
 
 do {
     /**
      * Dato ingresado por el usuario.
      */
-    dato = parseInt(prompt('Bienvenido elija una opcion para continuar:\n1: Depositar/Transferir/Simular plazo fijo.\n2: Agregar tarjetas.\n3: Mostrar Tarjetas.\n4: Ver saldo.\n5: Ver transferencias.\n0: Salir.'));
+    dato = parseInt(prompt('Bienvenido elija una opcion para continuar:\n1: Depositar/Transferir/Simular plazo fijo.\n2: Agregar tarjetas.\n3: Eliminar tarjeta.\n4: Mostrar Tarjetas.\n5: Buscar transferencias.\n6: Ver transferencias.\n0: Salir.'));
     /**
      * Menu
      */
@@ -184,7 +208,7 @@ do {
                 /**
                  * Dato ingresado por el usuario.
                  */
-                dato2 = parseInt(prompt('elija una opcion:\n1: Depositar.\n2: Transferir.\n3: Simular plazo fijo.\n0: salir.'));
+                dato2 = parseInt(prompt('elija una opcion:\n1: Depositar.\n2: Transferir.\n3: Simular plazo fijo.\n4: Ver saldo.\n0: salir.'));
                  /**
                   * Submenu
                   */
@@ -198,6 +222,9 @@ do {
                     case 3:
                         plazoFijo();
                         break;
+                    case 4:
+                        VerSaldo(saldo);
+                        break;
                     case 0:                       
                         break;
                     default:
@@ -210,12 +237,15 @@ do {
             agregar_tarjeta();            
             break;
         case 3:
-            mostrar_tarjetas(array_tarjetas);
+            eliminar_tarjeta();
             break;
         case 4:
-            VerSaldo(saldo);
+            mostrar_tarjetas(array_tarjetas);
             break;
         case 5:
+            buscar_transferencias();
+            break;
+        case 6:
             mostrar_transferencias(array_tranferencias);
             break;
         case 0:
