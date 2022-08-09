@@ -10,9 +10,9 @@ let tasaInteres = parseFloat(0.38);
  * Aca se guardan las tarjetas.
  */
 const array_tarjetas = [
-{nombre_Titular: "Diego", dni_Titular: 1234567, numero_Tarjeta : 000000001, vencimiento_tarjeta: 010124},
-{nombre_Titular: "Alejandro", dni_Titular: 987654, numero_Tarjeta : 11111111111, vencimiento_tarjeta: 1111111},
-{nombre_Titular: "Julio", dni_Titular: 654321, numero_Tarjeta : 222222222, vencimiento_tarjeta: 222222}];
+{nombre_Titular: "Diego", dni_Titular: 1234567, numero_Tarjeta : 1, vencimiento_tarjeta: 010124},
+{nombre_Titular: "Alejandro", dni_Titular: 987654, numero_Tarjeta : 2, vencimiento_tarjeta: 1111111},
+{nombre_Titular: "Julio", dni_Titular: 654321, numero_Tarjeta : 3, vencimiento_tarjeta: 222222}];
 
 /**
  * Aca se guardan las transferencias.
