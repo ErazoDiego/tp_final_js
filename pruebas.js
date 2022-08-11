@@ -4,12 +4,12 @@ let saldo = 10000;
  * Aca se guardan las transferencias.
 */
 const array_tranferencias=[
-    {nombre_t_cuenta: "Sandra", monto_transferido: 2500, CBU: 123654987},
-    {nombre_t_cuenta: "Lucas", monto_transferido: 5000, CBU: 225566489},
-    {nombre_t_cuenta: "Victor", monto_transferido: 2000, CBU: 898765454},
-    {nombre_t_cuenta: "Juan", monto_transferido: 4500, CBU: 321245655},
-    {nombre_t_cuenta: "Lucas", monto_transferido:5500 , CBU: 225566489},
-    {nombre_t_cuenta: "Julieta", monto_transferido: 5000, CBU: 785465782}
+    {nombre_t_cuenta: "Sandra Gomez", monto_transferido: 2500, CBU: 123654987},
+    {nombre_t_cuenta: "Lucas Proda", monto_transferido: 5000, CBU: 225566489},
+    {nombre_t_cuenta: "Victor ferreira", monto_transferido: 2000, CBU: 898765454},
+    {nombre_t_cuenta: "Juan Salgero", monto_transferido: 4500, CBU: 321245655},
+    {nombre_t_cuenta: "Lucas Ferrari", monto_transferido:5500 , CBU: 225566489},
+    {nombre_t_cuenta: "Julieta Martin", monto_transferido: 5000, CBU: 785465782}
 ];
 
 /**
@@ -25,13 +25,18 @@ const array_tranferencias=[
 
 
 /**
- * Solicita datos para tranfencia, crea un objeto y lo guarda en el array_transferencias
+ * Captura datos, crea un objeto y lo guarda en el array_transferencias
  */
- function Transferir(){
-    let nombre_t_cuenta = prompt('Ingrese nombre del titular de la cuenta:');
-    let CBU = parseInt(prompt('ingrese CBU.'));
-    let monto_transferido = parseInt(prompt('Ingrese monto que desea transferir.'));
+ function transferir(){
+
+    let nombre_t_cuenta = document.getElementById("inputNombre").value;
+    let CBU = document.getElementById("inputCBU").value;
+    let monto_transferido = document.getElementById("inputMontoTransferencia").value;
     let mensaje =" ";
+
+    parseInt(monto_transferido);
+    parseInt(CBU);
+
     if (isNaN(monto_transferido)) {
 
         mensaje ='No se ingreso un valor numerico.'; 
@@ -58,11 +63,11 @@ const array_tranferencias=[
 
     const texto = document.getElementById('texto');
     console.log(texto);
-    const h1 = document.createElement('h1');
-    h1.textContent = mensaje;
-    texto.appendChild(h1);
+    const h4 = document.createElement('h4');
+    h4.textContent = mensaje;
+    texto.appendChild(h4);
 
-
+    console.log(array_tranferencias);
 }
 
 
@@ -70,7 +75,7 @@ const array_tranferencias=[
  * Muestra por consola el array_transferencias.
  * @param {*} array 
  */
- function mostrar_transferencias(array){
+function mostrar_transferencias(array){
     if (array_tranferencias.length==0) {
         alert('No tiene transferensias realizadas.');
     } else {
@@ -82,4 +87,21 @@ const array_tranferencias=[
     };  
 };
 
-Transferir();
+
+function resetear_form(){
+
+    document.getElementById("inputNombre").value = "";
+    document.getElementById("inputCBU").value = "";
+    document.getElementById("inputMontoTransferencia").value = "";
+    
+
+}
+
+
+let btn_transferir = document.getElementById("btn_trnsferir");
+btn_transferir.addEventListener("click", ()=>{
+   
+    transferir();
+    resetear_form();
+
+});
