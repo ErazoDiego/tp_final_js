@@ -63,11 +63,13 @@ const array_tranferencias=[
 
     const texto = document.getElementById('texto');
     console.log(texto);
-    const h4 = document.createElement('h4');
-    h4.textContent = mensaje;
-    texto.appendChild(h4);
+    const h6 = document.createElement('h6');
+    h6.textContent = mensaje;
+    texto.appendChild(h6);
 
     console.log(array_tranferencias);
+
+
 }
 
 

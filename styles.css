@@ -1,0 +1,32 @@
+.div_1 {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+};
+
+.btn{
+   
+   background-color: white !important;
+};
+
+.ctn-1{
+    display: inline-block;
+}
+
+.div-1{
+    float: left;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+
+
+.div-2{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    float:left;
+}
