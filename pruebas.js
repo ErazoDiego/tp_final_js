@@ -62,15 +62,11 @@ const array_tranferencias=[
     array_tranferencias.push(transfererencia_x);
 
     const texto = document.getElementById('texto');
-    console.log(texto);
-    const h6 = document.createElement('h6');
-    h6.textContent = mensaje;
-    texto.appendChild(h6);
-
+    texto.innerText = mensaje;
+    
     console.log(array_tranferencias);
 
-
-}
+};
 
 
 /**
@@ -97,7 +93,7 @@ function resetear_form(){
     document.getElementById("inputMontoTransferencia").value = "";
     
 
-}
+};
 
 
 let btn_transferir = document.getElementById("btn_trnsferir");
@@ -107,3 +103,5 @@ btn_transferir.addEventListener("click", ()=>{
     resetear_form();
 
 });
+
+
