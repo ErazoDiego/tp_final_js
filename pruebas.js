@@ -69,21 +69,7 @@ const array_tranferencias=[
 };
 
 
-/**
- * Muestra por consola el array_transferencias.
- * @param {*} array 
- */
-function mostrar_transferencias(array){
-    if (array_tranferencias.length==0) {
-        alert('No tiene transferensias realizadas.');
-    } else {
-       for (const transferencia_x of array) {
-        console.log("Nombre del titular: "+transferencia_x.nombre_t_cuenta);
-        console.log("CBU: "+ transferencia_x.CBU);
-        console.log("monto transferido: $"+transferencia_x.monto_transferido+'\n\n');
-        }; 
-    };  
-};
+
 
 
 function resetear_form(){
@@ -104,4 +90,26 @@ btn_transferir.addEventListener("click", ()=>{
 
 });
 
+/**
+ * Muestra por consola el array_transferencias.
+ * @param {*} array 
+ */
+function mostrar_transferencias(array){
+    if (array_tranferencias.length==0) {
+        alert('No tiene transferensias realizadas.');
+    } else {
+    for (const transferencia_x of array) {
+        console.log("Nombre del titular: "+transferencia_x.nombre_t_cuenta);
+        console.log("CBU: "+ transferencia_x.CBU);
+        console.log("monto transferido: $"+transferencia_x.monto_transferido+'\n\n');
+        }; 
+    };  
+};
 
+let btn_transferencias = document.getElementById("btn-transferencias");
+btn_transferencias.addEventListener("click",()=>{
+
+
+    mostrar_transferencias(array_tranferencias)
+
+});

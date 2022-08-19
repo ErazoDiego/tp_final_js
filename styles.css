@@ -27,7 +27,7 @@
 .sub-menu{
     padding: 5%;
 }
-.texto-saldo{
+.texto-saldo .saldo{
     justify-content: center;
     align-items: center;
     flex-direction: column;
