@@ -47,6 +47,9 @@ function resetear_campos(){
         <div class="col-md-6"id="caja-texto-3">
 
         </div>
+        <div class="col-md-6"id="caja-texto-4">
+
+        </div>
        
         <div class="col-12" id="div_boton">
             
@@ -55,7 +58,7 @@ function resetear_campos(){
             
         </div>
     
-    </form>`
+    </form>`;
 
 };
 
@@ -63,7 +66,9 @@ function resetear_campos(){
 
 let btn_ingresar_dinero= document.getElementById("btn_ingresar_dinero");
 btn_ingresar_dinero.addEventListener("click",()=>{
+
     resetear_campos();
+
     let formulario =document.getElementById("caja-texto");
     formulario.innerHTML=`
     <label for="inputMonto" class="form-label">Monto</label>
@@ -80,7 +85,7 @@ btn_ingresar_dinero.addEventListener("click",()=>{
 
     
     /**
-    *Pide un monto a depositar verifica que sea un numero y lo guarda en la variable saldo. 
+    * verifica que sea un numero y lo guarda en la variable saldo. 
     */
     function Depositar(){
         let deposito = parseInt(document.getElementById("inputMonto").value);
@@ -100,6 +105,7 @@ btn_ingresar_dinero.addEventListener("click",()=>{
     };
 
     actualizar_saldo();
+
     let btn_depositar = document.getElementById("btn_depositar");
     btn_depositar.addEventListener("click",()=>{
         Depositar();
@@ -113,13 +119,17 @@ btn_ingresar_dinero.addEventListener("click",()=>{
 
 let btn_retirar_dinero = document.getElementById("btn_retirar_dinero");
 btn_retirar_dinero.addEventListener("click",()=>{
+
     resetear_campos();
+
     let formulario =document.getElementById("caja-texto");
     formulario.innerHTML=`
     <label for="inputMonto" class="form-label">Monto</label>
-    <input type="number" class="form-control" id="inputMonto" placeholder="Ingrese monto">`
+    <input type="number" class="form-control" id="inputMonto" placeholder="Ingrese monto">`;
+
     let boton = document.getElementById("div_boton");
-    boton.innerHTML=`<button type="button" class="btn btn-primary" id="btn_retirar">Retirar</button>`
+    boton.innerHTML=`<button type="button" class="btn btn-primary" id="btn_retirar">Retirar</button>`;
+
     let mensaje = document.getElementById("mensaje");
     mensaje.innerHTML=`<h6 id="mensaje"></h6>`;
 
@@ -134,7 +144,7 @@ btn_retirar_dinero.addEventListener("click",()=>{
         if (isNaN(retiro)) {
             mensaje ='No se ingreso un valor numerico.';
         }else if(retiro>saldo){
-            mensaje ='No posee saldo suficiente'
+            mensaje ='No posee saldo suficiente';
         }else{
             saldo = saldo-retiro
             mensaje ='Su retiro se realizo correctamente.';      
@@ -157,24 +167,30 @@ btn_retirar_dinero.addEventListener("click",()=>{
     });
 });
 
+
 let nueva_transferencia = document.getElementById("nueva_transferencia");
 nueva_transferencia.addEventListener("click",()=>{
+
     resetear_campos();
+
     let formulario_1=document.getElementById("caja-texto");
     formulario_1.innerHTML=`
     <label for="inputNombre" class="form-label">Nombre y Apellido</label>
-    <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese nombre">`
+    <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese nombre">`;
+
     let formulario_2 = document.getElementById("caja-texto-2");
     formulario_2.innerHTML = `
     <label for="inputMontoTransferencia" class="form-label">Monto a Tranferir</label>
-    <input type="text" class="form-control" id="inputMontoTransferencia" placeholder="Ingrese monto">`
+    <input type="text" class="form-control" id="inputMontoTransferencia" placeholder="Ingrese monto">`;
+
     let formulario_3 = document.getElementById("caja-texto-3");
     formulario_3.innerHTML = `
     <label for="inputCBU" class="form-label">CBU</label>
-    <input type="text" class="form-control" id="inputCBU" placeholder="Ingrese CBU">`
+    <input type="text" class="form-control" id="inputCBU" placeholder="Ingrese CBU">`;
+
     let div_btn_transferir = document.getElementById("div_boton");
     div_btn_transferir.innerHTML =`
-    <button type="button" class="btn btn-primary" id="btn_trnsferir">Transferir</button>`
+    <button type="button" class="btn btn-primary" id="btn_trnsferir">Transferir</button>`;
 
     /**
     * Captura datos, crea un objeto y lo guarda en el array_transferencias

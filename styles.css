@@ -20,6 +20,7 @@
     display: flex;
     float:left;  
     padding: 3%;
+    height: auto;
 }
 .mb-1{
     padding: 3%;
