@@ -85,19 +85,31 @@ btn_ingresar_dinero.addEventListener("click",()=>{
 
     
     /**
-    * verifica que sea un numero y lo guarda en la variable saldo. 
+    * verifica que sea un numero . 
     */
     function Depositar(){
         let deposito = parseInt(document.getElementById("inputMonto").value);
         let mensaje = " ";
+
         if (isNaN(deposito)) {
             mensaje ='No se ingreso un valor numerico.';
         }else{
             saldo = saldo+deposito
-            mensaje ='Su deposito se realizo correctamente.';      
+            mensaje ='Su deposito se realizo correctamente.'; 
+            Toastify({
+
+                text: "Deposito realizado.",
+                
+                duration: 3000
+                
+            }).showToast();
+                 
         };
         let texto = document.getElementById('mensaje');
         texto.innerText = mensaje;
+
+
+
     };
 
     function reset_campo(){
@@ -147,7 +159,14 @@ btn_retirar_dinero.addEventListener("click",()=>{
             mensaje ='No posee saldo suficiente';
         }else{
             saldo = saldo-retiro
-            mensaje ='Su retiro se realizo correctamente.';      
+            mensaje ='Su retiro se realizo correctamente.'; 
+            Toastify({
+
+                text: "Retiro realizado.",
+                
+                duration: 3000
+                
+            }).showToast();     
         };
         let texto = document.getElementById('mensaje');
         texto.innerText = mensaje;
@@ -172,6 +191,13 @@ let nueva_transferencia = document.getElementById("nueva_transferencia");
 nueva_transferencia.addEventListener("click",()=>{
 
     resetear_campos();
+
+    let texto_saldo = document.getElementById("saldo");
+    texto_saldo.innerHTML=`
+    <h2>Saldo</h2>
+    <h2 id="texto-saldo"></h2>
+    <h2>Transferencias</h2>`;
+    actualizar_saldo();
 
     let formulario_1=document.getElementById("caja-texto");
     formulario_1.innerHTML=`
@@ -226,6 +252,13 @@ nueva_transferencia.addEventListener("click",()=>{
              * Guardo objeto creado en el array.
              */
             array_tranferencias.push(transfererencia_x);
+            Toastify({
+
+                text: "Transferencia Exitosa.",
+                
+                duration: 3000
+                
+            }).showToast();
     
         };
         
@@ -251,6 +284,26 @@ nueva_transferencia.addEventListener("click",()=>{
        
         transferir();
         resetear_form();
-    
+        actualizar_saldo();
+        
     });
 });
+
+let ver_tranferencias = document.getElementById("btn-transferencias");
+ver_tranferencias.addEventListener("click",()=>{
+
+    let div_2 = document.getElementById("div-2");
+    div_2.innerHTML=`
+    <div class="row col-md-6 texto-saldo" id="saldo" >
+      <h2>Transferencias</h2>      
+    </div>
+    <div class="row-md-6"id="caja-texto">
+
+    </div>`;
+
+   
+
+});
+function crear_lista(){
+
+};
