@@ -1,3 +1,6 @@
+/**
+ * variables
+ */
 let saldo= 0;
 parseInt(saldo);
 
@@ -25,7 +28,7 @@ const array_tranferencias=[
 };
 
 /**
- * actualiza el valoe de saldo.
+ * actualiza el valor de saldo en el htmt.
  */
 function actualizar_saldo(){
     let textoSaldo = document.getElementById('texto-saldo');
@@ -67,12 +70,16 @@ function resetear_campos(){
 };
 
 
-
+/**
+ * evento de boton ingresar dinero
+ */
 let btn_ingresar_dinero= document.getElementById("btn_ingresar_dinero");
 btn_ingresar_dinero.addEventListener("click",()=>{
 
     resetear_campos();
-
+    /**
+     * crea los campos en html
+     */
     let formulario =document.getElementById("caja-texto");
     formulario.innerHTML=`
     <label for="inputMonto" class="form-label">Monto</label>
@@ -115,13 +122,17 @@ btn_ingresar_dinero.addEventListener("click",()=>{
 
 
     };
-
+    /**
+     * limpia el imput
+     */
     function reset_campo(){
         document.getElementById("inputMonto").value = "";
     };
 
     actualizar_saldo();
-
+    /**
+     * evento de boton depositar
+     */
     let btn_depositar = document.getElementById("btn_depositar");
     btn_depositar.addEventListener("click",()=>{
         Depositar();
@@ -132,12 +143,16 @@ btn_ingresar_dinero.addEventListener("click",()=>{
 
 });
 
-
+/**
+ * evento de boton retirar dinero
+ */
 let btn_retirar_dinero = document.getElementById("btn_retirar_dinero");
 btn_retirar_dinero.addEventListener("click",()=>{
 
     resetear_campos();
-
+    /**
+     * crea los campos en html
+     */
     let formulario =document.getElementById("caja-texto");
     formulario.innerHTML=`
     <label for="inputMonto" class="form-label">Monto</label>
@@ -153,7 +168,9 @@ btn_retirar_dinero.addEventListener("click",()=>{
     texto_saldo.innerHTML=`
     <h2>Saldo</h2>
     <h2 id="texto-saldo"></h2>`;
-
+    /**
+     * Verifica el dato ingresado, realiza cambios en la variable saldo
+     */
     function Retiro(){
         let retiro = parseInt(document.getElementById("inputMonto").value);
         let mensaje = " ";
@@ -175,12 +192,17 @@ btn_retirar_dinero.addEventListener("click",()=>{
         let texto = document.getElementById('mensaje');
         texto.innerText = mensaje;
     };
-
+/**
+ * limpia el imput
+ */
     function reset_campo(){
         document.getElementById("inputMonto").value = "";
     };
-
+    
     actualizar_saldo();
+    /**
+     * Evento de boton Retirar Dinero.
+     */
     let btn_retirar = document.getElementById("btn_retirar");
     btn_retirar.addEventListener("click",()=>{
         Retiro();
@@ -190,34 +212,34 @@ btn_retirar_dinero.addEventListener("click",()=>{
     });
 });
 
-
+/**
+ * Evento de boton NUeva Transferencia.
+ */
 let nueva_transferencia = document.getElementById("nueva_transferencia");
 nueva_transferencia.addEventListener("click",()=>{
 
     resetear_campos();
-
+    /**
+     * Crea el html
+     */
     let texto_saldo = document.getElementById("saldo");
     texto_saldo.innerHTML=`
     <h2>Saldo</h2>
     <h2 id="texto-saldo"></h2>
     <h2>Transferencias</h2>`;
     actualizar_saldo();
-
     let formulario_1=document.getElementById("caja-texto");
     formulario_1.innerHTML=`
     <label for="inputNombre" class="form-label">Nombre y Apellido</label>
     <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese nombre">`;
-
     let formulario_2 = document.getElementById("caja-texto-2");
     formulario_2.innerHTML = `
     <label for="inputMontoTransferencia" class="form-label">Monto a Tranferir</label>
     <input type="text" class="form-control" id="inputMontoTransferencia" placeholder="Ingrese monto">`;
-
     let formulario_3 = document.getElementById("caja-texto-3");
     formulario_3.innerHTML = `
     <label for="inputCBU" class="form-label">CBU</label>
     <input type="text" class="form-control" id="inputCBU" placeholder="Ingrese CBU">`;
-
     let div_btn_transferir = document.getElementById("div_boton");
     div_btn_transferir.innerHTML =`
     <button type="button" class="btn btn-success" id="btn_trnsferir">Transferir</button>`;
@@ -292,7 +314,9 @@ nueva_transferencia.addEventListener("click",()=>{
 
     }
 
-
+    /**
+     * limpia campos del formulario.
+     */
     function resetear_form(){
 
         document.getElementById("inputNombre").value = "";
@@ -302,7 +326,9 @@ nueva_transferencia.addEventListener("click",()=>{
     
     };
     
-    
+    /**
+     * Evento de boton transferir.
+     */
     let btn_transferir = document.getElementById("btn_trnsferir");
     btn_transferir.addEventListener("click", ()=>{
        
@@ -312,10 +338,14 @@ nueva_transferencia.addEventListener("click",()=>{
         
     });
 });
-
+/**
+ * Evento de boton Ver Transferencias.
+ */
 let ver_tranferencias = document.getElementById("btn-ver-transferencias");
 ver_tranferencias.addEventListener("click",()=>{
-
+    /**
+     * Crea tabla con titulos
+     */
     let div_2 = document.getElementById("div-2");
     div_2.innerHTML=`
     <div class="row col-md-6 texto-saldo" id="saldo" >
@@ -340,7 +370,9 @@ ver_tranferencias.addEventListener("click",()=>{
         </table>
 
     </div>`;
-
+    /**
+     * inserta los datos en filas
+     */
     function crear_item(){
         
         let transferencias=JSON.parse(localStorage.getItem('lista_Transferencias'));
