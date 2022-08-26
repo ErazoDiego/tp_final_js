@@ -13,6 +13,9 @@ let agregar_contacto=document.getElementById("agregar_contacto");
 agregar_contacto.addEventListener("click",()=>{
 
     resetear_campos();
+    let texto_saldo = document.getElementById("saldo");
+    texto_saldo.innerHTML=`
+    <h2>Agregar Contacto</h2>`;
 
     let formulario_1=document.getElementById("caja-texto");
     formulario_1.innerHTML=`
@@ -36,7 +39,7 @@ agregar_contacto.addEventListener("click",()=>{
 
     let btn_agregar = document.getElementById("div_boton");
     btn_agregar.innerHTML =`
-    <button type="button" class="btn btn-primary" id="btn_agregar">Agregar</button>`;
+    <button type="button" class="btn btn-success" type="submit" id="btn_agregar">Agregar</button>`;
 
     function nuevo_contacto(){
         let nombre_contacto = document.getElementById("inputNombre").value;
@@ -47,7 +50,13 @@ agregar_contacto.addEventListener("click",()=>{
         const nuevo_contacto =new Contacto(nombre_contacto,CBU,telefono,email);
 
         guardar_contacto(nuevo_contacto);
-        
+        Toastify({
+
+            text: "Contacto guardado.",
+            
+            duration: 3000
+            
+        }).showToast();
 
     };
 
@@ -80,4 +89,49 @@ agregar_contacto.addEventListener("click",()=>{
         recet_campos();
         
     });
+});
+
+let ver_contacto= document.getElementById("btn-ver-contacto");
+ver_contacto.addEventListener("click",()=>{
+
+    let div_2 = document.getElementById("div-2");
+    div_2.innerHTML=`
+    <div class="row col-md-6 texto-saldo" id="saldo" >
+        <h2>Contactos</h2>  
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Ingrese Nombre" aria-label="Search">
+            <button class="btn btn-success" type="submit">Buscar</button>
+        </form>    
+    </div>
+    <div class="row-md-6"id="caja-texto">
+    <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">CBU</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody id="lista-contactos">
+            </tbody>
+        </table>
+
+    </div>`;
+
+    let contactos=JSON.parse(localStorage.getItem('lista_contactos'));
+    for(const contacto of contactos){
+        let contenedor= document.getElementById("lista-contactos");
+        const fila= document.createElement('tr');
+        fila.innerHTML=`
+        <th scope="row"></th>
+        <td>${contacto.nombre}</td>
+        <td>${contacto.telefono}</td>
+        <td>${contacto.cbu}</td>
+        <td>${contacto.email}</td>
+        <td><button type="button" class="btn btn-outline-danger">Eliminar</button></td>`
+        contenedor.appendChild(fila);
+    };
+        
 });

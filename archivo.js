@@ -24,17 +24,21 @@ const array_tranferencias=[
     };
 };
 
-
+/**
+ * actualiza el valoe de saldo.
+ */
 function actualizar_saldo(){
     let textoSaldo = document.getElementById('texto-saldo');
     textoSaldo.innerText = "$"+saldo;
         
 };
-
+/**
+ * borra los campos del html
+ */
 function resetear_campos(){
     let div_2 = document.getElementById("div-2");
     div_2.innerHTML=`
-    <div class="row col-md-3 texto-saldo" id="saldo" >
+    <div class="row col-md-6 texto-saldo" id="saldo" >
             
     </div>
     <form class="row g-3"id="form">
@@ -74,7 +78,7 @@ btn_ingresar_dinero.addEventListener("click",()=>{
     <label for="inputMonto" class="form-label">Monto</label>
     <input type="number" class="form-control" id="inputMonto" placeholder="Ingrese monto">`
     let boton = document.getElementById("div_boton");
-    boton.innerHTML=`<button type="button" class="btn btn-primary" id="btn_depositar">Depositar</button>`
+    boton.innerHTML=`<button type="button" class="btn btn-success" id="btn_depositar">Depositar</button>`
     let mensaje = document.getElementById("mensaje");
     mensaje.innerHTML=`<h6 id="mensaje"></h6>`;
 
@@ -140,7 +144,7 @@ btn_retirar_dinero.addEventListener("click",()=>{
     <input type="number" class="form-control" id="inputMonto" placeholder="Ingrese monto">`;
 
     let boton = document.getElementById("div_boton");
-    boton.innerHTML=`<button type="button" class="btn btn-primary" id="btn_retirar">Retirar</button>`;
+    boton.innerHTML=`<button type="button" class="btn btn-success"id="btn_retirar">Retirar</button>`;
 
     let mensaje = document.getElementById("mensaje");
     mensaje.innerHTML=`<h6 id="mensaje"></h6>`;
@@ -216,7 +220,7 @@ nueva_transferencia.addEventListener("click",()=>{
 
     let div_btn_transferir = document.getElementById("div_boton");
     div_btn_transferir.innerHTML =`
-    <button type="button" class="btn btn-primary" id="btn_trnsferir">Transferir</button>`;
+    <button type="button" class="btn btn-success" id="btn_trnsferir">Transferir</button>`;
 
     /**
     * Captura datos, crea un objeto y lo guarda en el array_transferencias
@@ -247,11 +251,12 @@ nueva_transferencia.addEventListener("click",()=>{
             /**
              * Crea nuevo objeto transferencias.
              */
-            const transfererencia_x = new Transferencia(nombre_t_cuenta,monto_transferido,CBU);
+            const transferencia_x = new Transferencia(nombre_t_cuenta,monto_transferido,CBU);
             /**
              * Guardo objeto creado en el array.
              */
-            array_tranferencias.push(transfererencia_x);
+            array_tranferencias.push(transferencia_x);
+            guardar_transferencia(transferencia_x)
             Toastify({
 
                 text: "Transferencia Exitosa.",
@@ -269,6 +274,25 @@ nueva_transferencia.addEventListener("click",()=>{
         console.log(array_tranferencias);
 
     };
+
+    function guardar_transferencia(transferencia){
+        let verifico =localStorage.getItem("lista_Transferencias");
+        if(verifico){
+            let lista_Transferencias=JSON.parse(localStorage.getItem("lista_Transferencias"));
+            lista_Transferencias.push(transferencia);
+
+            let lista_en_json =JSON.stringify(lista_Transferencias);
+            localStorage.setItem("lista_Transferencias",lista_en_json);
+        }else{
+            let lista_Transferencias = new Array();
+            lista_Transferencias.push(transferencia);
+            let lista_en_json = JSON.stringify(lista_Transferencias);
+            localStorage.setItem("lista_Transferencias",lista_en_json);
+        }
+
+    }
+
+
     function resetear_form(){
 
         document.getElementById("inputNombre").value = "";
@@ -289,21 +313,53 @@ nueva_transferencia.addEventListener("click",()=>{
     });
 });
 
-let ver_tranferencias = document.getElementById("btn-transferencias");
+let ver_tranferencias = document.getElementById("btn-ver-transferencias");
 ver_tranferencias.addEventListener("click",()=>{
 
     let div_2 = document.getElementById("div-2");
     div_2.innerHTML=`
     <div class="row col-md-6 texto-saldo" id="saldo" >
-      <h2>Transferencias</h2>      
+      <h2>Transferencias</h2>
+      <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Ingrese Nombre" aria-label="Search">
+      <button class="btn btn-success" type="submit">Buscar</button>
+  </form>      
     </div>
     <div class="row-md-6"id="caja-texto">
+    <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">CBU</th>
+                </tr>
+            </thead>
+            <tbody id="lista-transferencia">
+            </tbody>
+        </table>
 
     </div>`;
 
-   
+    function crear_item(){
+        
+        let transferencias=JSON.parse(localStorage.getItem('lista_Transferencias'));
+        
+    
+        for(const transferencia of transferencias){
+            
+            let contenedor=document.getElementById("lista-transferencia");
+            const fila= document.createElement('tr');
+            fila.innerHTML=`
+            <th scope="row"></th>
+            <td>${transferencia.nombre_t_cuenta}</td>
+            <td>$${transferencia.monto_transferido}</td>
+            <td>${transferencia.CBU}</td>`
+            contenedor.appendChild(fila);
 
+        }
+
+    };
+
+    crear_item();
 });
-function crear_lista(){
-
-};
