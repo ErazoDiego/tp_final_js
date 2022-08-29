@@ -7,14 +7,7 @@ parseInt(saldo);
 /**
  * Aca se guardan las transferencias.
 */
-const array_tranferencias=[
-    {nombre_t_cuenta: "Sandra Gomez", monto_transferido: 2500, CBU: 123654987},
-    {nombre_t_cuenta: "Lucas Proda", monto_transferido: 5000, CBU: 225566489},
-    {nombre_t_cuenta: "Victor ferreira", monto_transferido: 2000, CBU: 898765454},
-    {nombre_t_cuenta: "Juan Salgero", monto_transferido: 4500, CBU: 321245655},
-    {nombre_t_cuenta: "Lucas Ferrari", monto_transferido:5500 , CBU: 225566489},
-    {nombre_t_cuenta: "Julieta Martin", monto_transferido: 5000, CBU: 785465782}
-];
+const array_tranferencias=[];
 
 /**
  * clase constructora de objeto Transferencia.
@@ -102,8 +95,8 @@ btn_ingresar_dinero.addEventListener("click",()=>{
         let deposito = parseInt(document.getElementById("inputMonto").value);
         let mensaje = " ";
 
-        if (isNaN(deposito)) {
-            mensaje ='No se ingreso un valor numerico.';
+        if (isNaN(deposito)|| deposito<0) {
+            mensaje ='No ingreso correctamente un valor ';
         }else{
             saldo = saldo+deposito
             mensaje ='Su deposito se realizo correctamente.'; 
@@ -370,28 +363,38 @@ ver_tranferencias.addEventListener("click",()=>{
         </table>
 
     </div>`;
-    /**
-     * inserta los datos en filas
-     */
-    function crear_item(){
+    //mira si no hay transferensias en localStorage
+    let transferencias=JSON.parse(localStorage.getItem('lista_Transferencias'));
+    if(transferencias){
+        crear_item(transferencias);
+    }else{
+        console.log("no hay transferencias");
+        let contenedor=document.getElementById("lista-transferencia");
+        const fila= document.createElement('tr');
+        fila.innerHTML=`
+        <th scope="row"></th>
+        <td colspan=3>No hay transferencias realizadas.</td>`
+        contenedor.appendChild(fila);
         
-        let transferencias=JSON.parse(localStorage.getItem('lista_Transferencias'));
-        
-    
-        for(const transferencia of transferencias){
-            
-            let contenedor=document.getElementById("lista-transferencia");
-            const fila= document.createElement('tr');
-            fila.innerHTML=`
-            <th scope="row"></th>
-            <td>${transferencia.nombre_t_cuenta}</td>
-            <td>$${transferencia.monto_transferido}</td>
-            <td>${transferencia.CBU}</td>`
-            contenedor.appendChild(fila);
-
-        }
-
     };
-
-    crear_item();
+    
 });
+/**
+ * inserta los datos en filas
+ */
+function crear_item(transferencias){   
+    
+    for(const transferencia of transferencias){
+            
+        let contenedor=document.getElementById("lista-transferencia");
+        const fila= document.createElement('tr');
+        fila.innerHTML=`
+        <th scope="row"></th>
+        <td>${transferencia.nombre_t_cuenta}</td>
+        <td>$${transferencia.monto_transferido}</td>
+        <td>${transferencia.CBU}</td>`
+        contenedor.appendChild(fila);
+
+    }
+
+};
