@@ -158,31 +158,38 @@ function actualiza_lista(){
      * Inserta las filas con los datos.
      */
     let contactos=JSON.parse(localStorage.getItem('lista_contactos'));
-    
-    for(const contacto of contactos){
+
+    setTimeout(()=>{
+        for(const contacto of contactos){
         
-        let contenedor= document.getElementById("lista-contactos");
-        const fila= document.createElement('tr');
-        fila.innerHTML=`
-        <th scope="row">${contacto.id}</th>
-        <td>${contacto.nombre}</td>
-        <td>${contacto.telefono}</td>
-        <td>${contacto.cbu}</td>
-        <td>${contacto.email}</td>
-        <td><a href="javascript:eliminar(${contacto.id})">
-        <button type="button" class=" btn-eliminar btn btn-outline-danger">Eliminar</button>
-        </a></td>`
+            let contenedor= document.getElementById("lista-contactos");
+            const fila= document.createElement('tr');
+            fila.innerHTML=`
+            <th scope="row"></th>
+            <td>${contacto.nombre}</td>
+            <td>${contacto.telefono}</td>
+            <td>${contacto.cbu}</td>
+            <td>${contacto.email}</td>
+            <td><a href="javascript:eliminar(${contacto.id})">
+            <button type="button" class=" btn-eliminar btn btn-outline-danger">Eliminar</button>
+            </a></td>`
       
         
-        contenedor.appendChild(fila);
-    };
+            contenedor.appendChild(fila);
+            };
+    },500)
+    
+    
 };
 /**
  * Evento de boton Ver Contactos.
  */
 let ver_contacto= document.getElementById("btn-ver-contacto");
 ver_contacto.addEventListener("click",()=>{
+    
     actualiza_lista();
+    
+    
 
 });
    

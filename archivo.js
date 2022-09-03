@@ -366,7 +366,13 @@ ver_tranferencias.addEventListener("click",()=>{
     //mira si no hay transferensias en localStorage
     let transferencias=JSON.parse(localStorage.getItem('lista_Transferencias'));
     if(transferencias){
-        crear_item(transferencias);
+        return new Promise((resolve)=>{
+            setTimeout(()=>{
+                resolve(crear_item(transferencias))
+            },500)
+            
+        });
+        
     }else{
         console.log("no hay transferencias");
         let contenedor=document.getElementById("lista-transferencia");
@@ -384,6 +390,7 @@ ver_tranferencias.addEventListener("click",()=>{
  */
 function crear_item(transferencias){   
     
+        
     for(const transferencia of transferencias){
             
         let contenedor=document.getElementById("lista-transferencia");
@@ -395,6 +402,8 @@ function crear_item(transferencias){
         <td>${transferencia.CBU}</td>`
         contenedor.appendChild(fila);
 
-    }
-
+    };
+       
+    
+    
 };
