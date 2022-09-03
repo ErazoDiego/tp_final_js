@@ -159,7 +159,7 @@ function actualiza_lista(){
      */
     let contactos=JSON.parse(localStorage.getItem('lista_contactos'));
 
-    setTimeout(()=>{
+    function imprime_contacto(){
         for(const contacto of contactos){
         
             let contenedor= document.getElementById("lista-contactos");
@@ -176,8 +176,13 @@ function actualiza_lista(){
       
         
             contenedor.appendChild(fila);
-            };
-    },500)
+        };
+    };
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            resolve(imprime_contacto(contactos))
+        },500)
+    });
     
     
 };
