@@ -50,6 +50,9 @@ function resetear_campos(){
         <div class="col-md-6"id="caja-texto-4">
 
         </div>
+        <div class="col-md-3"id="caja-texto-5">
+
+        </div>
        
         <div class="col-12" id="div_boton">
             
@@ -61,6 +64,8 @@ function resetear_campos(){
     </form>`;
 
 };
+
+
 
 
 /**

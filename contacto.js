@@ -1,11 +1,12 @@
 let cont_id=0
 
 class Contacto{
-    constructor(nombre,cbu,telefono,email,id){
+    constructor(nombre,cbu,telefono,email,sexo,id){
         this.nombre=nombre;
         this.cbu=cbu;
         this.telefono=telefono;
         this.email=email;
+        this.sexo=sexo;
         this.id = id; 
     };
 };
@@ -38,6 +39,14 @@ agregar_contacto.addEventListener("click",()=>{
     formulario_4.innerHTML = `
     <label for="inputEmail" class="form-label">Email</label>
     <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese Email">`;
+    let formulario_5 = document.getElementById("caja-texto-5");
+    formulario_5.innerHTML = `
+    <label for="inputEmail" class="form-label">Sexo</label>
+    <select class="form-select" aria-label="Default select example"id="inputSexo">
+    <option selected></option>
+    <option value="1">Masculino</option>
+    <option value="2">Femenino</option>
+    </select>`;
     let btn_agregar = document.getElementById("div_boton");
     btn_agregar.innerHTML =`
     <button type="button" class="btn btn-success" type="submit" id="btn_agregar">Agregar</button>`;
@@ -49,19 +58,25 @@ agregar_contacto.addEventListener("click",()=>{
         let CBU = document.getElementById("inputCBU").value;
         let telefono = document.getElementById("inputTelefono").value;
         let email = document.getElementById("inputEmail").value;
+        let sexo =document.getElementById("inputSexo").value;
 
+        if (sexo==1) {
+            sexo = "./img/barba.png"
+        } else {
+            sexo= "./img/mujer2.png"
+        };
 
         let verifico =localStorage.getItem("lista_contactos");
         if(verifico){
             let lista_contactos=JSON.parse(localStorage.getItem("lista_contactos"));
-            const nuevo_contacto =new Contacto(nombre_contacto,CBU,telefono,email);
+            const nuevo_contacto =new Contacto(nombre_contacto,CBU,telefono,email,sexo);
             generar_id(nuevo_contacto);
             lista_contactos.push(nuevo_contacto);
             let lista_en_json = JSON.stringify(lista_contactos);
             localStorage.setItem("lista_contactos",lista_en_json);
 
         }else{
-            const nuevo_contacto =new Contacto(nombre_contacto,CBU,telefono,email);
+            const nuevo_contacto =new Contacto(nombre_contacto,CBU,telefono,email,sexo);
             generar_id(nuevo_contacto);
             let lista_contactos = new Array();
             lista_contactos.push(nuevo_contacto);
@@ -111,6 +126,7 @@ agregar_contacto.addEventListener("click",()=>{
         document.getElementById("inputCBU").value="";
         document.getElementById("inputTelefono").value="";
         document.getElementById("inputEmail").value="";
+        document.getElementById("inputSexo").value="";
     };
 
     /**
@@ -165,7 +181,7 @@ function actualiza_lista(){
             let contenedor= document.getElementById("lista-contactos");
             const fila= document.createElement('tr');
             fila.innerHTML=`
-            <th scope="row"></th>
+            <th scope="row"><img src="${contacto.sexo}" alt="icono"  width=40px height=40px></th>
             <td>${contacto.nombre}</td>
             <td>${contacto.telefono}</td>
             <td>${contacto.cbu}</td>

@@ -1,6 +1,8 @@
 
 .ctn-1{
     display: inline-block;
+    
+    
 }
 
 .div-1{
@@ -10,6 +12,7 @@
     flex-direction: column;
     display: flex;
     height: 100%;
+    
 }
 
 
@@ -35,4 +38,5 @@
     display: flex;
     float:right;  
     padding: 5%;
+ 
 }
