@@ -1,4 +1,4 @@
-
+let base_de_datos= {}
 
 async function menu_inicio(){
     opcion_menu_inicio= -1
@@ -32,7 +32,7 @@ async function registrar_nuevo_usuario(){
         html:`
         <input type="text" class="swal2-input" id="inputNewUsuario" placeholder="Usuario">
         <input type="password" class="swal2-input" id="inputNewPassword" placeholder="Contraseña">
-        
+
         <button type="button" class="swal2-confirm swal2-styled" onclick='registrar_nuevo_usuario=0;Swal.close()'>Cancelar</button>
         
         <button type="button" class="swal2-confirm swal2-styled" onclick='registrar_nuevo_usuario=1;Swal.clickConfirm()'>Crear</button>`,
@@ -48,8 +48,9 @@ async function registrar_nuevo_usuario(){
                 Swal.showValidationMessage("No ingreso contraseña");
                 return false;
             }
-
-
+            base_de_datos[usuario]={}
+            base_de_datos[usuario].usuario=usuario
+            base_de_datos[usuario].contraseña=contraseña
             return true;
             
 
@@ -65,12 +66,12 @@ async function registrar_nuevo_usuario(){
         default:
             await menu_inicio()
             break;
-        }
+    }
 }
 
 
 async function login(){
-    await swal.fire({
+    let{value:datos}=await swal.fire({
         title:"Bienvenido",
         confirmButtonText:"login",
         html:`
@@ -84,9 +85,9 @@ async function login(){
         </form>`,
 
         preConfirm:()=>{
-            let usuario =document.getElementById("inputUsuario").value;
+            let user =document.getElementById("inputUsuario").value;
             let password =document.getElementById("inputPassword").value;
-            if(!usuario){
+            if(!user){
                 Swal.showValidationMessage("No ingreso usuario")
                 return false;
             }
@@ -96,7 +97,48 @@ async function login(){
             }
 
 
+            let datos = JSON.parse(localStorage.getItem("lista_usuarios"))
+            
+            let encontrado=false
+            let i =0
+            while (!encontrado&& i !=datos.length) {
+                if (datos[i].usuario==user) {
+                    encontrado=datos[i]
+                }
+                i++
+            }
+            
+            if (!datos||encontrado ==false) {
+                Swal.showValidationMessage("El usuario no existe")
+                return false;
+            }
+            if (encontrado.contraseña !=password) {
+                Swal.showValidationMessage("Contraseña incorrecta");
+                return false;
+            }
+            return datos
+
+
+
         }
+
+        
     });
+    return datos
+
+
 };
+async function iniciar(){
+    fetch('./usuarios_json.json')
+        .then(respuesta =>respuesta.json())
+        .then(resultado =>{
+            
+            let lista_usuarios = JSON.stringify(resultado.usuarios)
+            localStorage.setItem("lista_usuarios",lista_usuarios)
+    })
+};
+
+
+
+iniciar();
 menu_inicio();

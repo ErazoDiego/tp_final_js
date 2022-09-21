@@ -1,0 +1,13 @@
+{
+    "usuarios":[
+       {
+            "usuario":"dae",
+            "contraseña":1234
+        }, 
+       {
+            "usuario":"yps",
+            "contraseña":4321
+        }
+    ]
+    
+}
