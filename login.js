@@ -1,5 +1,14 @@
 let base_de_datos= {}
 
+class Usuario {
+    constructor(new_usuario) {
+      this.usuario = new_usuario.usuario;
+      this.contraseña = new_usuario.contraseña;
+    }
+
+  
+};
+
 async function menu_inicio(){
     opcion_menu_inicio= -1
     await swal.fire({
@@ -33,9 +42,9 @@ async function registrar_nuevo_usuario(){
         <input type="text" class="swal2-input" id="inputNewUsuario" placeholder="Usuario">
         <input type="password" class="swal2-input" id="inputNewPassword" placeholder="Contraseña">
 
-        <button type="button" class="swal2-confirm swal2-styled" onclick='registrar_nuevo_usuario=0;Swal.close()'>Cancelar</button>
+        <button type="button" class="swal2-confirm swal2-styled" onclick=' opcion_registrar=0;Swal.close()'>Cancelar</button>
         
-        <button type="button" class="swal2-confirm swal2-styled" onclick='registrar_nuevo_usuario=1;Swal.clickConfirm()'>Crear</button>`,
+        <button type="button" class="swal2-confirm swal2-styled" onclick=' opcion_registrar=1;Swal.clickConfirm()'>Crear</button>`,
 
         preConfirmNewUsuario:()=>{
             let usuario =document.getElementById("inputNewUsuario").value;
@@ -48,9 +57,8 @@ async function registrar_nuevo_usuario(){
                 Swal.showValidationMessage("No ingreso contraseña");
                 return false;
             }
-            base_de_datos[usuario]={}
-            base_de_datos[usuario].usuario=usuario
-            base_de_datos[usuario].contraseña=contraseña
+            const nuevo_usuario = new Usuario(usuario,password)
+            guardar_datos(nuevo_usuario)
             return true;
             
 
@@ -108,7 +116,7 @@ async function login(){
                 i++
             }
             
-            if (!datos||encontrado ==false) {
+            if (encontrado.usuario !=user) {
                 Swal.showValidationMessage("El usuario no existe")
                 return false;
             }
@@ -138,7 +146,20 @@ async function iniciar(){
     })
 };
 
-
+function guardar_datos(nuevo_usuario){
+    let verifico=localStorage.getItem("lista_usuarios");
+    if(verifico){
+        let lista_de_usuarios =JSON.parse(localStorage.getItem("lista_usuarios"));
+        lista_de_usuarios.push(nuevo_usuario)
+        let lista_en_json=JSON.stringify(lista_de_usuarios);
+        localStorage.setItem("lista_usuarios",lista_en_json);
+    }else{
+        let lista_de_usuarios =new Array();
+        lista_de_usuarios.push(nuevo_usuario)
+        let lista_en_json=JSON.stringify(lista_de_usuarios);
+        localStorage.setItem("lista_usuarios",lista_en_json);
+    }
+}
 
 iniciar();
 menu_inicio();
