@@ -159,6 +159,10 @@ function actualiza_lista(){
     });
 
 };
+/**
+ * inserta los contactos en la tabla
+ * @param {} contactos 
+ */
 function imprime_contacto(contactos){
     for(const contacto of contactos){
     
@@ -178,6 +182,10 @@ function imprime_contacto(contactos){
         contenedor.appendChild(fila);
     };
 };
+
+/**
+ * limpia el html y prepara la tabla para mostrar los contactos o el resultado de la busqueda.
+ */
 function limpiar_campo(){
     let div_2 = document.getElementById("div-2");
     div_2.innerHTML=`
@@ -207,7 +215,9 @@ function limpiar_campo(){
 
     </div>`;
 };
-  
+/**
+ * busca un contacto por el nombre
+ */  
 function buscar_contacto(){
 
     let dato = document.getElementById("input_buscar_nombre").value
