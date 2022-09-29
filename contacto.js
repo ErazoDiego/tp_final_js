@@ -145,13 +145,49 @@ agregar_contacto.addEventListener("click",()=>{
  * crea tabla html con los titulos.
  */
 function actualiza_lista(){
+    limpiar_campo()
+
+    /**
+     * Inserta las filas con los datos.
+     */
+    let contactos=JSON.parse(localStorage.getItem('lista_contactos'));
+
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            resolve(imprime_contacto(contactos))
+        },500)
+    });
+
+};
+function imprime_contacto(contactos){
+    for(const contacto of contactos){
+    
+        let contenedor= document.getElementById("lista-contactos");
+        const fila= document.createElement('tr');
+        fila.innerHTML=`
+        <th scope="row"><img src="${contacto.sexo}" alt="icono"  width=40px height=40px></th>
+        <td>${contacto.nombre}</td>
+        <td>${contacto.telefono}</td>
+        <td>${contacto.cbu}</td>
+        <td>${contacto.email}</td>
+        <td><a href="javascript:eliminar(${contacto.id})">
+        <button type="button" class=" btn-eliminar btn btn-outline-danger">Eliminar</button>
+        </a></td>`
+  
+    
+        contenedor.appendChild(fila);
+    };
+};
+function limpiar_campo(){
     let div_2 = document.getElementById("div-2");
     div_2.innerHTML=`
     <div class="row col-md-6 texto-saldo" id="saldo" >
         <h2>Contactos</h2>  
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Ingrese Nombre" aria-label="Search">
-            <button class="btn btn-success" type="submit">Buscar</button>
+            <input class="form-control me-2" type="search" id="input_buscar_nombre" placeholder="Ingrese Nombre" aria-label="Search">
+            <a href="javascript:buscar_contacto()">
+                <button class="btn btn-success" type="button">Buscar</button>
+            </a>
         </form>    
     </div>
     <div class="row-md-6"id="caja-texto">
@@ -170,38 +206,22 @@ function actualiza_lista(){
         </table>
 
     </div>`;
-    /**
-     * Inserta las filas con los datos.
-     */
-    let contactos=JSON.parse(localStorage.getItem('lista_contactos'));
-
-    function imprime_contacto(){
-        for(const contacto of contactos){
-        
-            let contenedor= document.getElementById("lista-contactos");
-            const fila= document.createElement('tr');
-            fila.innerHTML=`
-            <th scope="row"><img src="${contacto.sexo}" alt="icono"  width=40px height=40px></th>
-            <td>${contacto.nombre}</td>
-            <td>${contacto.telefono}</td>
-            <td>${contacto.cbu}</td>
-            <td>${contacto.email}</td>
-            <td><a href="javascript:eliminar(${contacto.id})">
-            <button type="button" class=" btn-eliminar btn btn-outline-danger">Eliminar</button>
-            </a></td>`
-      
-        
-            contenedor.appendChild(fila);
-        };
-    };
-    return new Promise((resolve)=>{
-        setTimeout(()=>{
-            resolve(imprime_contacto(contactos))
-        },500)
-    });
-    
-    
 };
+  
+function buscar_contacto(){
+
+    let dato = document.getElementById("input_buscar_nombre").value
+    let contactos=JSON.parse(localStorage.getItem('lista_contactos'));
+    let resultado= contactos.filter(contacto=>contacto.nombre.toLowerCase().includes(dato.toLowerCase()))
+    limpiar_campo()
+    imprime_contacto(resultado)
+    
+}
+
+
+
+
+
 /**
  * Evento de boton Ver Contactos.
  */
