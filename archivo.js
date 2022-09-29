@@ -294,7 +294,10 @@ nueva_transferencia.addEventListener("click",()=>{
         console.log(array_tranferencias);
 
     };
-
+    /**
+     * guardalas transferencias en localStorage 
+     * @param {*} transferencia 
+     */
     function guardar_transferencia(transferencia){
         let verifico =localStorage.getItem("lista_Transferencias");
         if(verifico){

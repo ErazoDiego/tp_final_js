@@ -1,4 +1,5 @@
-let base_de_datos= {}
+let base_de_datos_login= {}
+
 
 class Usuario {
     constructor(new_usuario) {
@@ -58,11 +59,13 @@ async function registrar_nuevo_usuario(){
                 return false;
             }
             const nuevo_usuario = new Usuario(usuario,password)
+            base_de_datos_login.push(nuevo_usuario)
             guardar_datos(nuevo_usuario)
             return true;
             
 
         }
+
     });
     switch(opcion_registrar){
         case 0:
@@ -136,6 +139,9 @@ async function login(){
 
 
 };
+/**
+ *carga los datos de el archivo json 
+ */
 async function iniciar(){
     fetch('./usuarios_json.json')
         .then(respuesta =>respuesta.json())
@@ -143,6 +149,8 @@ async function iniciar(){
             
             let lista_usuarios = JSON.stringify(resultado.usuarios)
             localStorage.setItem("lista_usuarios",lista_usuarios)
+            base_de_datos_login= lista_usuarios
+            console.log(base_de_datos_login)
     })
 };
 
